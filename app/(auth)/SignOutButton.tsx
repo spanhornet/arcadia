@@ -18,7 +18,7 @@ export function SignOutButton({ className }: React.ComponentPropsWithoutRef<"div
       await authClient.signOut({
         fetchOptions: {
           onSuccess: () => {
-            router.push("/sign-in");
+            router.push("/sign-out");
           },
         },
       });
