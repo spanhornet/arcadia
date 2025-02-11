@@ -60,7 +60,7 @@ export function SignInForm({ className, ...props}: React.ComponentPropsWithoutRe
           email: values.email,
           password: values.password,
           callbackURL: "/",
-          rememberMe: true,
+          rememberMe: false,
         },
         {
           onError: (ctx) => {
