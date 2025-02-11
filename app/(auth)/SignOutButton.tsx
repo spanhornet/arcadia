@@ -15,13 +15,13 @@ export function SignOutButton({ className }: React.ComponentPropsWithoutRef<"div
   async function handleSignOut() {
     setLoading(true);
     try {
-        await authClient.signOut({
-            fetchOptions: {
-                onSuccess: () => {
-                    router.push("/sign-in");
-                },
-            },
-        });
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            router.push("/sign-in");
+          },
+        },
+      });
     } catch (error) {
       alert(`Sign Out Error: ${error}`);
     } finally {
@@ -31,14 +31,14 @@ export function SignOutButton({ className }: React.ComponentPropsWithoutRef<"div
 
   return (
     <Button onClick={handleSignOut} className={className} disabled={isLoading}>
-        {isLoading ? (
-            <>
-                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                Signing out
-            </>
-        ) : (
-            "Sign out"
-        )}
+      {isLoading ? (
+        <>
+          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+          Signing out
+        </>
+      ) : (
+        "Sign out"
+      )}
     </Button>
   );
 }
