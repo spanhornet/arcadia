@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+
 import { authClient } from "@/lib/auth-client";
 
 import { z } from "zod";
@@ -26,11 +27,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Input } from "@/components/ui/input";
 
 import Link from "next/link";
 
 import { ReloadIcon, EyeOpenIcon, EyeNoneIcon } from "@radix-ui/react-icons";
+import { updateUsersRole } from "./actions/update-users-role";
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -43,6 +52,7 @@ const formSchema = z.object({
     .regex(/[A-Z]/, "Password must contain at least 1 uppercase letter")
     .regex(/[0-9]/, "Password must contain at least 1 number")
     .regex(/\W/, "Password must contain at least 1 special character"),
+    role: z.string().min(1, "Role is required")
 });
 
 export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
@@ -53,6 +63,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
     defaultValues: {
       firstName: "",
       lastName: "",
+      role: "",
       email: "",
       password: "",
     },
@@ -72,23 +83,27 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
           callbackURL: "/",
         },
         {
-          onRequest: () => setLoading(true),
-          onSuccess: () => {
-            router.push("/");
-          },
           onError: (ctx) => {
             alert(ctx.error.message);
           },
         }
       );
+
       if (error) throw error;
+
+      await updateUsersRole({
+        role: values.role, 
+        userId: data.user.id,
+      });
+
+      router.push("/");
     } catch (error) {
       alert(`Sign-up Error: ${error}`);
     } finally {
       setLoading(false);
     }
   }
-
+  
   const togglePasswordVisibility = () => {
     setPasswordVisible((state) => !state);
   };
@@ -131,6 +146,27 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                   )}
                 />
               </div>
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role</FormLabel>
+                    <FormControl>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="ADMIN">Admin</SelectItem>
+                          <SelectItem value="MEMBER">Member</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="email"

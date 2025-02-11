@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+
 import { authClient } from "@/lib/auth-client";
 
 import { z } from "zod";
@@ -34,7 +35,7 @@ import { ReloadIcon, EyeOpenIcon, EyeNoneIcon } from "@radix-ui/react-icons";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(1, "Required"),
+  password: z.string().min(1, "Password is required"),
 });
 
 export function SignInForm({ className, ...props}: React.ComponentPropsWithoutRef<"div">) {
@@ -59,22 +60,20 @@ export function SignInForm({ className, ...props}: React.ComponentPropsWithoutRe
           email: values.email,
           password: values.password,
           callbackURL: "/",
-          rememberMe: false,
+          rememberMe: true,
         },
         {
-          onRequest: () => setLoading(true),
-          onSuccess: () => {
-            // Use router
-            router.push("/");
-          },
           onError: (ctx) => {
             alert(ctx.error.message);
           },
         }
       );
+
       if (error) throw error;
+
+      router.push("/");
     } catch (error) {
-      alert(`Sign-up Error: ${error}`);
+      alert(`Sign-in Error: ${error}`);
     } finally {
       setLoading(false);
     }
