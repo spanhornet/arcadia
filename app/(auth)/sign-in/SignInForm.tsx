@@ -55,7 +55,7 @@ export function SignInForm({ className, ...props}: React.ComponentPropsWithoutRe
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     try {
-      const { data, error } = await authClient.signIn.email(
+      const { error } = await authClient.signIn.email(
         {
           email: values.email,
           password: values.password,

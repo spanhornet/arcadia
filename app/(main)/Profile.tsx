@@ -3,7 +3,7 @@
 import { authClient } from "@/lib/auth-client";
 
 export function Profile() {
-    const { data: session, isPending, error, refetch } = authClient.useSession();
+    const { data: session, isPending, error } = authClient.useSession();
 
     if (isPending) {
         return <p>Loading...</p>;

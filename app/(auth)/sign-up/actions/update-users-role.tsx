@@ -23,6 +23,6 @@ export const updateUsersRole = async ({
 
     return;
   } catch (error) {
-    throw new Error("Internal Server Error");
+    throw new Error(`${error}`);
   }
 };
