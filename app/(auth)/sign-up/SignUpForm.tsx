@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -45,6 +46,8 @@ const formSchema = z.object({
 });
 
 export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
+  const router = useRouter();
+  
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,7 +74,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
         {
           onRequest: () => setLoading(true),
           onSuccess: () => {
-            setLoading(false);
+            router.push("/");
           },
           onError: (ctx) => {
             alert(ctx.error.message);
