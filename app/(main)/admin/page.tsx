@@ -1,7 +1,10 @@
-export default async function Page() {
+import { CandidateTable } from "./components/CandidateTable";
+
+export default function Page() {
+
     return (
-        <>
-            Page
-        </>
+        <div>
+            <CandidateTable />
+        </div>
     );
 }
