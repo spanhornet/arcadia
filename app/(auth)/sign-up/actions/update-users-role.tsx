@@ -14,12 +14,12 @@ export const updateUsersRole = async ({
 ) => {
   try {
     await db
-        .update(schema.users)
-        .set({
+      .update(schema.users)
+      .set({
         role,
         updatedAt: sql`NOW()`,
-        })
-        .where(eq(schema.users.id, userId));
+      })
+      .where(eq(schema.users.id, userId));
 
     return;
   } catch (error) {
