@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from "@/db";
-import { candidate, schema } from "@/db/schema";
+import { schema } from "@/db/schema";
 import { sql, eq } from "drizzle-orm";
 
 export const getAllCandidates = async () => {

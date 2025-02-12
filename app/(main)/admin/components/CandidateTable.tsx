@@ -10,13 +10,15 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 
 import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 
 import { createClient } from '@/utils/supabase/client';
 
 import { getAllCandidates } from "../actions/get-all-candidates";
+import { getCurrentCandidate } from "../actions/get-current-candidate";
+
+import { HandleVotingButton } from "./HandleVotingButton";
 
 interface Candidate {
     id: string;
@@ -30,16 +32,22 @@ interface Candidate {
     votedUsers: string[];
 }
 
+interface CurrentCandidate {
+    candidateId: string;
+    firstName: string;
+    lastName: string;
+}
+
 const supabase = await createClient();
 
 export function CandidateTable() {
 
     const [candidates, setCandidates] = useState<Candidate[]>([]);
+    const [currentCandidate, setCurrentCandidate] = useState<CurrentCandidate>();
 
     useEffect(() => {
         const fetchCandidates = async () => {
             const result = await getAllCandidates();
-            console.log(result)
             setCandidates(result);
         };
         fetchCandidates();
@@ -87,8 +95,7 @@ export function CandidateTable() {
                                 {candidate.votePercentage}
                             </TableCell>
                             <TableCell className="text-right float-right flex items-center gap-2">
-                                <Button>Start vote</Button>
-                                <Button>End vote</Button>
+                                <HandleVotingButton candidateId={candidate.id}/>
                             </TableCell>
                         </TableRow>
                     ))}

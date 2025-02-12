@@ -1,0 +1,1 @@
+ALTER TABLE "current_candidate" ADD PRIMARY KEY ("candidate_id");

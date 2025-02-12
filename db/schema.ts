@@ -59,10 +59,18 @@ export const vote = pgTable("vote", {
   updatedAt: timestamp("updated_at").notNull(),
 });
 
+// Current Candidate Table
+export const currentCandidate = pgTable("current_candidate", {
+  candidateId: text("candidate_id").primaryKey().notNull().references(() => candidate.id),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+});
+
 export const schema = {
   users: user,
   sessions: session,
   accounts: account,
   candidates: candidate,
   votes: vote,
+  currentCandidate: currentCandidate,
 };
