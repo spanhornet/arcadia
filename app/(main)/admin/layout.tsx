@@ -7,16 +7,13 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
+import { getInitials } from "@/lib/utils";
+
 // Import components
 import { Avatar } from "@/components/ui/avatar";
+import { Container } from "@/components/container";
 import { ModeToggle } from "@/components/mode-toggle";
 import { SignOutButton } from "@/app/(auth)/SignOutButton";
-
-const getInitials = (name: string) => {
-    const names = name.split(" ");
-    const initials = names[0][0] + (names[1] ? names[1][0] : "");
-    return initials.toUpperCase();
-};
 
 export default async function Layout({
     children,
@@ -41,17 +38,27 @@ export default async function Layout({
     }
 
     return (
-        <>
-            <nav className="flex items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-800">
-                <div className="flex items-center gap-4">
-                    <Avatar>{getInitials(user.name)}</Avatar>
-                </div>
-                <div className="flex items-center gap-4">
-                    <ModeToggle />
-                    <SignOutButton />
-                </div>
-            </nav>
-            <div>{children}</div>
+        <>  
+            <div className="border-b border-neutral-100 dark:border-b dark:border-neutral-800">
+                <Container>
+                <nav className="flex items-center justify-between p-4 border-r border-l border-neutral-100 dark:border-r dark:border-l dark:border-neutral-700">
+                    <div className="flex items-center gap-4">
+                        <Avatar>{getInitials(user.name)}</Avatar>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <ModeToggle />
+                        <SignOutButton />
+                    </div>
+                </nav>
+                </Container>
+            </div>
+            <div className="border-b border-neutral-100 dark:border-b dark:border-neutral-800">
+                <Container>
+                    <div className="border-r border-l border-neutral-100 dark:border-r dark:border-l dark:border-neutral-700">
+                        {children}
+                    </div>
+                </Container>
+            </div>
         </>
     );
 }
