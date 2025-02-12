@@ -10,8 +10,7 @@ export const updateUsersRole = async ({
 } : {
   role: string, 
   userId: string
-}
-) => {
+}) => {
   try {
     await db
       .update(schema.users)

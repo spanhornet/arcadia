@@ -14,6 +14,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Container } from "@/components/container";
 import { ModeToggle } from "@/components/mode-toggle";
 import { SignOutButton } from "@/app/(auth)/SignOutButton";
+import { CreateCandidateForm } from "./components/CreateCandidateForm";
 
 export default async function Layout({
     children,
@@ -39,22 +40,23 @@ export default async function Layout({
 
     return (
         <>  
-            <div className="border-b border-neutral-100 dark:border-b dark:border-neutral-800">
+            <div className="border-b border-neutral-200 dark:border-b dark:border-neutral-800">
                 <Container>
-                <nav className="flex items-center justify-between p-4 border-r border-l border-neutral-100 dark:border-r dark:border-l dark:border-neutral-700">
+                <nav className="flex items-center justify-between p-4 border-r border-l border-neutral-200 dark:border-r dark:border-l dark:border-neutral-700">
                     <div className="flex items-center gap-4">
                         <Avatar>{getInitials(user.name)}</Avatar>
                     </div>
                     <div className="flex items-center gap-4">
                         <ModeToggle />
                         <SignOutButton />
+                        <CreateCandidateForm />
                     </div>
                 </nav>
                 </Container>
             </div>
-            <div className="border-b border-neutral-100 dark:border-b dark:border-neutral-800">
+            <div className="border-b border-neutral-200 dark:border-b dark:border-neutral-800">
                 <Container>
-                    <div className="border-r border-l border-neutral-100 dark:border-r dark:border-l dark:border-neutral-700">
+                    <div className="border-r border-l border-neutral-200 dark:border-r dark:border-l dark:border-neutral-700">
                         {children}
                     </div>
                 </Container>

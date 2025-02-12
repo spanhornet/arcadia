@@ -43,6 +43,13 @@
       "when": 1739295646760,
       "tag": "0005_glorious_deadpool",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1739383966035,
+      "tag": "0006_noisy_jubilee",
+      "breakpoints": true
     }
   ]
 }

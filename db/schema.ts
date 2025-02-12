@@ -2,13 +2,13 @@ import { pgTable, text, integer, timestamp, boolean } from "drizzle-orm/pg-core"
 
 // User Table
 export const user = pgTable("user", {
-    id: text("id").primaryKey(),
-    name: text('name').notNull(),
-    role: text("role"),
-    email: text('email').notNull().unique(),
-    emailVerified: boolean('email_verified').notNull(),
-    createdAt: timestamp('created_at').notNull(),
-    updatedAt: timestamp('updated_at').notNull(),
+  id: text("id").primaryKey(),
+  name: text('name').notNull(),
+  role: text("role"),
+  email: text('email').notNull().unique(),
+  emailVerified: boolean('email_verified').notNull(),
+  createdAt: timestamp('created_at').notNull(),
+  updatedAt: timestamp('updated_at').notNull(),
 });
 
 // Session Table
@@ -40,8 +40,29 @@ export const account = pgTable("account", {
   updatedAt: timestamp("updated_at").notNull(),
 });
 
+// Candidate Table
+export const candidate = pgTable("candidate", {
+  id: text("id").primaryKey(),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+// Vote Table
+export const vote = pgTable("vote", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => user.id),
+  candidateId: text("candidate_id").notNull().references(() => candidate.id),
+  vote: boolean("vote").notNull(),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
 export const schema = {
-    users: user,
-    sessions: session,
-    accounts: account,
+  users: user,
+  sessions: session,
+  accounts: account,
+  candidates: candidate,
+  votes: vote,
 };
