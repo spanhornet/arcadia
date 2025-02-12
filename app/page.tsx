@@ -1,13 +1,11 @@
-import { SignOutButton } from "./(auth)/SignOutButton";
-import { Profile } from "./(main)/Profile";
-
 import { db } from "@/db";
 import { schema } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 import { auth } from "@/lib/auth";
+
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import { eq } from "drizzle-orm";
 
 export default async function Home() {
   const session = await auth.api.getSession({
@@ -28,11 +26,4 @@ export default async function Home() {
   } else {
     return redirect("/member");
   }
-
-  return (
-    <>
-      <Profile />
-      <SignOutButton />
-    </>
-  );
 }
