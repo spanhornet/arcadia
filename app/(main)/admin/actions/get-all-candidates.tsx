@@ -21,6 +21,7 @@ export const getAllCandidates = async () => {
             let positiveVotes = 0;
             let negativeVotes = 0;
             let votedUsers = [];
+            let badges = [];
 
             for (let j = 0; j < candidateVotes.length; j++) {
                 const votedUser = await db
@@ -36,6 +37,14 @@ export const getAllCandidates = async () => {
                 }
             }
 
+            if (positiveVotes === 0 && negativeVotes === 0) {
+                badges.push("N/A")
+            } else if (positiveVotes / (positiveVotes + negativeVotes) >= 0.80) {
+                badges.push("Pledge")
+            } else {
+                badges.push("Callback")
+            }
+
             result.push({
                 id: candidates[i].id,
                 firstName: candidates[i].firstName,
@@ -44,8 +53,9 @@ export const getAllCandidates = async () => {
                 updatedAt: candidates[i].updatedAt,
                 positiveVotes: positiveVotes,
                 negativeVotes: negativeVotes,
-                votePercentage: (positiveVotes == 0 && negativeVotes == 0) ? "N/A" : ((positiveVotes / (positiveVotes + negativeVotes)) * 100).toFixed(2) + "%",
+                votePercentage: (positiveVotes == 0 && negativeVotes == 0) ? "N/A" : ((positiveVotes / (positiveVotes + negativeVotes)) * 100).toFixed(2),
                 votedUsers: votedUsers,
+                badges: badges,
             })   
         }
 
