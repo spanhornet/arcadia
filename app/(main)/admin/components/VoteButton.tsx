@@ -10,7 +10,6 @@ import { isCurrentCandidateEmpty } from "../actions/is-current-candidate-empty";
 
 const supabase = await createClient();
 
-
 export function VoteButton() {
     const [isEmpty, setEmpty] = useState(false);
 

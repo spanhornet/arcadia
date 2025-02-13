@@ -32,7 +32,7 @@ export const getAllCandidates = async () => {
                 if (candidateVotes[j].vote == true) {
                     positiveVotes++;
                 } else {
-                    negativeVotes--;
+                    negativeVotes++;
                 }
             }
 
