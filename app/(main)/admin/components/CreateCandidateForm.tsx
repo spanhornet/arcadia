@@ -25,9 +25,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { Input } from "@/components/ui/input";
 
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { ReloadIcon, PlusIcon } from "@radix-ui/react-icons";
 import { createCandidate } from "../actions/create-candidate";
 
 const formSchema = z.object({
@@ -61,9 +68,21 @@ export function CreateCandidateForm() {
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline">Create candidate</Button>
-      </DialogTrigger>
+      
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+            <DialogTrigger asChild>
+            <Button variant="outline" size="icon">
+              <PlusIcon />
+            </Button>
+            </DialogTrigger>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Create candidate</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Create candidate</DialogTitle>
@@ -86,8 +105,6 @@ export function CreateCandidateForm() {
                 </FormItem>
               )}
             />
-          </form>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
             <FormField
               control={form.control}
               name="lastName"
@@ -101,7 +118,7 @@ export function CreateCandidateForm() {
                 </FormItem>
               )}
             />
-          </form>
+          
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <>
@@ -112,6 +129,7 @@ export function CreateCandidateForm() {
               "Create candidate"
             )}
           </Button>
+          </form>
         </Form>
       </DialogContent>
     </Dialog>

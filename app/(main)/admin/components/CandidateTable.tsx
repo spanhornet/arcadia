@@ -18,8 +18,6 @@ import { createClient } from '@/utils/supabase/client';
 import { getAllCandidates } from "../actions/get-all-candidates";
 import { getCurrentCandidate } from "../actions/get-current-candidate";
 
-import { HandleVotingButton } from "./HandleVotingButton";
-
 interface Candidate {
     id: string;
     firstName: string;
@@ -32,18 +30,11 @@ interface Candidate {
     votedUsers: string[];
 }
 
-interface CurrentCandidate {
-    candidateId: string;
-    firstName: string;
-    lastName: string;
-}
-
 const supabase = await createClient();
 
 export function CandidateTable() {
 
     const [candidates, setCandidates] = useState<Candidate[]>([]);
-    const [currentCandidate, setCurrentCandidate] = useState<CurrentCandidate>();
 
     useEffect(() => {
         const fetchCandidates = async () => {
@@ -77,7 +68,6 @@ export function CandidateTable() {
                         <TableHead>Last name</TableHead>
                         <TableHead>Votes (#)</TableHead>
                         <TableHead>Votes (%)</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -93,9 +83,6 @@ export function CandidateTable() {
                             </TableCell>
                             <TableCell>
                                 {candidate.votePercentage}
-                            </TableCell>
-                            <TableCell className="text-right float-right flex items-center gap-2">
-                                <HandleVotingButton candidateId={candidate.id}/>
                             </TableCell>
                         </TableRow>
                     ))}

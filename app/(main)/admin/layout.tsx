@@ -46,10 +46,10 @@ export default async function Layout({
                     <div className="flex items-center gap-4">
                         <Avatar>{getInitials(user.name)}</Avatar>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
                         <ModeToggle />
-                        <SignOutButton />
                         <CreateCandidateForm />
+                        <SignOutButton />
                     </div>
                 </nav>
                 </Container>
