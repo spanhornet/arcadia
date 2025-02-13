@@ -58,7 +58,7 @@ interface Candidate {
   positiveVotes: number;
   negativeVotes: number;
   votePercentage: string;
-  votedUsers: string[];
+  badges: string[];
 }
 
 export function StartVoteButton() {

@@ -16,7 +16,6 @@ import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { createClient } from '@/utils/supabase/client';
 
 import { getAllCandidates } from "../actions/get-all-candidates";
-import { getCurrentCandidate } from "../actions/get-current-candidate";
 
 interface Candidate {
     id: string;
@@ -27,7 +26,6 @@ interface Candidate {
     positiveVotes: number;
     negativeVotes: number;
     votePercentage: string;
-    votedUsers: string[];
     badges: string[];
 }
 

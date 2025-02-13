@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 import { schema } from "@/db/schema";
-import { sql, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 export const createCurrentCandidate = async ({
     candidateId
